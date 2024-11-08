@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://cnd0f85o2of5v"]
+
+[ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_oijes"]
+[ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="1_rjy1p"]
+[ext_resource type="Script" path="res://Script/world.gd" id="1_tf0e6"]
+[ext_resource type="PackedScene" uid="uid://bwj7e848ymusp" path="res://Assets/Environment/LowPoly Environment Pack/Environment_1.fbx" id="3_w3wgm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
+size = Vector3(1, 1.20215, 1)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0fpnf"]
+panorama = ExtResource("1_rjy1p")
+
+[sub_resource type="Sky" id="Sky_0i6le"]
+sky_material = SubResource("PanoramaSkyMaterial_0fpnf")
+
+[sub_resource type="Environment" id="Environment_e7i5a"]
+background_mode = 2
+sky = SubResource("Sky_0i6le")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2jde"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_tf0e6")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(0.537043, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376268, 0)
+script = ExtResource("1_oijes")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1.125, 0, 0, 0, 1.37, 0, 0, 0, 0.475, 0, 0.138472, 0)
+shape = SubResource("BoxShape3D_i5rpn")
+
+[node name="XRCamera3D" type="XRCamera3D" parent="CharacterBody3D"]
+transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657042, 0)
+environment = SubResource("Environment_e7i5a")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.445268, 0, 0, 0, 0.398147, 0, 0, 0, 0.555825, 0, -0.357221, -2.2946)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+
+[node name="Environment_1" parent="StaticBody3D2" instance=ExtResource("3_w3wgm")]
+transform = Transform3D(2.87183, 0, 0, 0, 1, 0, 0, 0, 2.06256, 0.241384, -0.629748, 0.141391)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+transform = Transform3D(57.8695, 0, 0, 0, 0.46103, 0, 0, 0, 40.0113, 0, -0.172669, 0)
+shape = SubResource("BoxShape3D_j2jde")
