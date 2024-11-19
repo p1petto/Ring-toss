@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="2_c5258"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
-size = Vector3(1, 1.662, 0.59)
+size = Vector3(1, 2, 0.59)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0fpnf"]
 panorama = ExtResource("2_c5258")
@@ -23,9 +23,9 @@ collision_mask = 13
 script = ExtResource("1_wuikl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.138472, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_i5rpn")
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
-transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657042, 0)
+transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 environment = SubResource("Environment_e7i5a")

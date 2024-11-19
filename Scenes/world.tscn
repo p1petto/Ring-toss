@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=8 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_tf0e6"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
 [ext_resource type="PackedScene" uid="uid://bwj7e848ymusp" path="res://Assets/Environment/LowPoly Environment Pack/Environment_1.fbx" id="3_w3wgm"]
 [ext_resource type="PackedScene" uid="uid://c3w3tq6yiw3up" path="res://Scenes/peg.tscn" id="5_t3sxd"]
 [ext_resource type="PackedScene" uid="uid://dse5vf5jg1x3w" path="res://Scenes/toss_zone.tscn" id="6_bdwx1"]
+[ext_resource type="PackedScene" uid="uid://dcstv16isk4li" path="res://Scenes/ring.tscn" id="6_ir14s"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_j2jde"]
 size = Vector3(58.67, 1, 43.085)
@@ -25,7 +26,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172669, 0)
 shape = SubResource("BoxShape3D_j2jde")
 
 [node name="Peg" parent="." instance=ExtResource("5_t3sxd")]
-transform = Transform3D(0.2, 0, 0, 0, 0.6, 0, 0, 0, 0.2, 0, 1, -3.363)
+transform = Transform3D(0.2, 0, 0, 0, 0.365, 0, 0, 0, 0.2, 0, 1, -3.363)
+height = 3.0
 
 [node name="TossZone" parent="." instance=ExtResource("6_bdwx1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+
+[node name="Ring" parent="." instance=ExtResource("6_ir14s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.90805, 1.1777, -1.43752)
