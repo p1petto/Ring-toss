@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="RingType" load_steps=2 format=3 uid="uid://bc6jemu7lo73y"]
+
+[ext_resource type="Script" path="res://Script/ring_resource.gd" id="1_xebsd"]
+
+[resource]
+script = ExtResource("1_xebsd")
+radius = 0.4
+color = Color(0, 1, 0, 1)

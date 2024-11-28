@@ -15,10 +15,10 @@ func _on_body_entered(body: Node3D) -> void:
 	if body.name == 'Player':
 		print("in")
 
-		body.can_toss = true
+		body.on_zone = true
 
 
 func _on_body_exited(body: Node3D) -> void:
 	if body.name == 'Player':
 		print("out")
-		body.can_toss = false
+		body.on_zone = false

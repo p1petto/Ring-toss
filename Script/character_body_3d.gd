@@ -5,10 +5,11 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 var mouse_sensitivity = 0.002
 
-var can_toss = false
+signal ring_is_taken
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	#ring_is_taken.connect(move_to_hand())
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -32,6 +33,9 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
+func move_to_hand():
+	pass
+	
 func _input(event):
 	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		rotate_y(-event.relative.x * mouse_sensitivity)
@@ -43,3 +47,7 @@ func _input(event):
 	if event.is_action_pressed("click"):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			
+	if event.is_action_pressed("interact"):
+		pass
+			

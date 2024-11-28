@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwhkng5nevhlc"]
+[gd_scene load_steps=8 format=3 uid="uid://bwhkng5nevhlc"]
 
 [ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_wuikl"]
 [ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="2_c5258"]
+[ext_resource type="Script" path="res://Script/cursor.gd" id="3_5twcb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
 size = Vector3(1, 2, 0.59)
@@ -29,3 +30,9 @@ shape = SubResource("BoxShape3D_i5rpn")
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 environment = SubResource("Environment_e7i5a")
+
+[node name="RayCast3D" type="RayCast3D" parent="XRCamera3D"]
+collision_mask = 4
+
+[node name="Cursor" type="Node3D" parent="."]
+script = ExtResource("3_5twcb")
