@@ -30,7 +30,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172669, 0)
 shape = SubResource("BoxShape3D_j2jde")
 
 [node name="Ring" parent="." instance=ExtResource("6_ir14s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.71098, 2.29528, -1.43684)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.711, 2.295, -0.777)
 ring_type = ExtResource("7_q2vdr")
 
 [node name="Ring2" parent="." instance=ExtResource("6_ir14s")]

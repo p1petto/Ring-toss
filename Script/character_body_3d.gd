@@ -47,7 +47,5 @@ func _input(event):
 	if event.is_action_pressed("click"):
 		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			
-	if event.is_action_pressed("interact"):
-		pass
+	
 			

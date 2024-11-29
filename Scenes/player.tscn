@@ -32,7 +32,22 @@ transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 environment = SubResource("Environment_e7i5a")
 
 [node name="RayCast3D" type="RayCast3D" parent="XRCamera3D"]
-collision_mask = 4
+collision_mask = 5
+
+[node name="ColorRect" type="ColorRect" parent="XRCamera3D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Cursor" type="Node3D" parent="."]
 script = ExtResource("3_5twcb")
