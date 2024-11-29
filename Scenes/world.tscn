@@ -10,8 +10,7 @@
 [ext_resource type="Resource" uid="uid://bc6jemu7lo73y" path="res://Resources/green.tres" id="7_8rgd5"]
 [ext_resource type="Resource" uid="uid://b80imxaauhaa3" path="res://Resources/blue.tres" id="7_q2vdr"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j2jde"]
-size = Vector3(58.67, 1, 43.085)
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
@@ -27,7 +26,7 @@ transform = Transform3D(2.87183, 0, 0, 0, 1, 0, 0, 0, 2.06256, 0.241384, -0.6297
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172669, 0)
-shape = SubResource("BoxShape3D_j2jde")
+shape = SubResource("WorldBoundaryShape3D_d2wyr")
 
 [node name="Ring" parent="." instance=ExtResource("6_ir14s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.711, 2.295, -0.777)

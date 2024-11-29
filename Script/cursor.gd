@@ -10,7 +10,6 @@ var hands_are_employed: bool = false
 
 func _ready():
 	camera.current = true
-	#camera.add_child(raycaster)
 	raycaster.target_position = Vector3(0, 0, -ray_length)
 
 func get_looked_object() -> Node3D:
