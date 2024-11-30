@@ -9,16 +9,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
-
-
-func _on_body_entered(body: Node3D) -> void:
-	if body.name == 'Player':
-		print("in")
-
-		body.on_zone = true
-
-
-func _on_body_exited(body: Node3D) -> void:
-	if body.name == 'Player':
-		print("out")
-		body.on_zone = false

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Script/toss_zone.gd" id="1_sxllw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_p7pe0"]
-size = Vector3(2.06, 0.12, 4.105)
+size = Vector3(5, 0.12, 5)
 
 [node name="TossZone" type="Area3D"]
 collision_mask = 2
@@ -12,5 +12,5 @@ script = ExtResource("1_sxllw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_p7pe0")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+size = Vector3(5, 0.12, 5)
