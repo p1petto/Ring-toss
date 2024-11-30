@@ -1,7 +1,7 @@
 extends MeshInstance3D
 
 @export var texture: Texture2D
-@export var rings: Array[Color]
+@export var rings: Array[RingType]
 
 func _ready() -> void:
 	if texture:

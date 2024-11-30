@@ -25,7 +25,7 @@ func _input(event):
 	if event.is_action_pressed("interact"):
 		var looked_object = get_looked_object()
 		if looked_object:
-			print("Позиция:", get_look_position())
+			#print("Позиция:", get_look_position())
 			if looked_object.is_in_group("Rings") and !hands_are_employed:
 				take_item()
 			elif hands_are_employed:
@@ -34,7 +34,7 @@ func _input(event):
 func take_item():
 	var item = get_looked_object()
 	if item:
-		print("Подобрал предмет:", item.name)
+		#print("Подобрал предмет:", item.name)
 		
 		item.get_parent().remove_child(item)
 		
@@ -78,5 +78,5 @@ func drop_item():
 			# Устанавливаем, что руки больше не заняты
 			hands_are_employed = false
 			
-			print("Выбросил предмет:", item.name)
+			#print("Выбросил предмет:", item.name)
 			return

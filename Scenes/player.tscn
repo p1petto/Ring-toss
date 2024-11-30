@@ -51,3 +51,6 @@ size_flags_vertical = 4
 
 [node name="Cursor" type="Node3D" parent="."]
 script = ExtResource("3_5twcb")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0

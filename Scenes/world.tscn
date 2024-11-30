@@ -1,6 +1,5 @@
 [gd_scene load_steps=11 format=3 uid="uid://cnd0f85o2of5v"]
 
-[ext_resource type="Script" path="res://Script/world.gd" id="1_tf0e6"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
 [ext_resource type="PackedScene" uid="uid://bwj7e848ymusp" path="res://Assets/Environment/LowPoly Environment Pack/Environment_1.fbx" id="3_w3wgm"]
 [ext_resource type="PackedScene" uid="uid://d4n35mmct4fqq" path="res://Scenes/plane.tscn" id="4_44dmq"]
@@ -9,12 +8,12 @@
 [ext_resource type="Resource" uid="uid://js4sndcj1kjq" path="res://Resources/red.tres" id="6_kq3lk"]
 [ext_resource type="Resource" uid="uid://bc6jemu7lo73y" path="res://Resources/green.tres" id="7_8rgd5"]
 [ext_resource type="Resource" uid="uid://b80imxaauhaa3" path="res://Resources/blue.tres" id="7_q2vdr"]
+[ext_resource type="Script" path="res://Script/ring_resource.gd" id="10_fmj2o"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
-script = ExtResource("1_tf0e6")
 
 [node name="Player" parent="." instance=ExtResource("2_0h47v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376268, 0)
@@ -44,4 +43,4 @@ ring_type = ExtResource("7_8rgd5")
 transform = Transform3D(0.986597, 0.146281, 0.072309, 0.028769, 0.280259, -0.959493, -0.160621, 0.948713, 0.272294, -0.21934, 2, -3.62746)
 skeleton = NodePath("../StaticBody3D2")
 texture = ExtResource("5_0e645")
-rings = Array[Color]([Color(1, 0, 0, 1), Color(0, 0, 1, 1), Color(0, 1, 0, 1)])
+rings = Array[ExtResource("10_fmj2o")]([ExtResource("6_kq3lk"), ExtResource("7_q2vdr"), ExtResource("7_8rgd5")])
