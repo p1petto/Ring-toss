@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://bxfvl387wei5j"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_byrhl"]
+[ext_resource type="Script" path="res://ringpickuble.gd" id="2_7waei"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_xpih1"]
+height = 0.25
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_10ynl"]
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s2v7x"]
+
+[node name="PickableRing" instance=ExtResource("1_byrhl")]
+collision_mask = 7
+script = ExtResource("2_7waei")
+ring_type = null
+picked_up_layer = 4
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("CylinderShape3D_xpih1")
+
+[node name="Area3D" type="Area3D" parent="." index="1" groups=["rings_shape"]]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("CylinderShape3D_10ynl")
+
+[node name="model" type="CSGCylinder3D" parent="." index="2"]
+radius = 0.44
+height = 0.25
+material = SubResource("StandardMaterial3D_s2v7x")

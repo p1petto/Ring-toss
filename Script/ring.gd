@@ -1,5 +1,5 @@
 extends RigidBody3D
-class_name Ring
+#class_name Ring
 
 signal stack_updated(ring: Ring)
 

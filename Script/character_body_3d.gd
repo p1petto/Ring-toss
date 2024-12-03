@@ -1,41 +1,43 @@
 extends CharacterBody3D
 
+@onready var camera = $XROrigin3D/XRCamera3D
+@onready var right_controller = $XROrigin3D/RightXRController3D
+@onready var function_pointer = $XROrigin3D/RightXRController3D/FunctionPointer 
+@onready var ray_cast = $XROrigin3D/RightXRController3D/FunctionPointer/RayCast
+@onready var world = $"../"
 @onready var plane = $"../Plane"
 
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
-var mouse_sensitivity = 0.002
 var rings: Array[Ring] = []
-var base_rings: Array[Ring] = []  # Кольца, которые находятся на земле
-
-signal ring_is_taken
-
-
+var base_rings: Array[Ring] = []
+var held_object = null
 
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	#ring_is_taken.connect(move_to_hand())
+	# Настраиваем RayCast
+	if ray_cast:
+		ray_cast.collision_mask = 1  # Установите нужную маску коллизий
+		ray_cast.target_position = Vector3(0, 0, -10)  # Длина луча
+		ray_cast.collide_with_bodies = true
+		ray_cast.enabled = true
+	
+	# Собираем все кольца на сцене
 	for child in $"../".get_children():
 		if child is Ring:
 			rings.append(child)
 			
-	# Подключаем сигналы от каждого кольца
+	# Подключаем сигналы от колец
 	for ring in rings:
 		ring.stack_updated.connect(_on_ring_stack_updated)
 
 func _physics_process(delta: float) -> void:
-	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
+	# Обработка движения
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -45,21 +47,75 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	
-func move_to_hand():
-	pass
-	
-func _input(event):
-	if event is InputEventMouseMotion and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		rotate_y(-event.relative.x * mouse_sensitivity)
-		$XRCamera3D.rotate_x(-event.relative.y * mouse_sensitivity)
-		$XRCamera3D.rotation.x = clampf($XRCamera3D.rotation.x, -deg_to_rad(70), deg_to_rad(70))
-	if event.is_action_pressed("ui_cancel"):
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	if event.is_action_pressed("click"):
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-			
+	# Обновляем позицию удерживаемого объекта
+	#if held_object:
+		#var controller_pos = right_controller.global_transform.origin
+		#var controller_forward = -right_controller.global_transform.basis.z
+		#held_object.global_transform.origin = controller_pos + controller_forward * 0.3
+#
+#func try_grab_object() -> void:
+	#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "1:Entering try_grab_object"
+	#
+	#if not ray_cast:
+		#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "2:ray_cast is null"
+		#return
+		#
+	#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "3:Getting collider"
+	#
+	## Проверяем, есть ли столкновение
+	#if ray_cast.is_colliding():
+		#var collider = ray_cast.get_collider()
+		#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "4:Collider=" + str(collider.name)
+		#
+		#if collider.is_in_group("Rings"):
+			##$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "5:Is in Rings group"
+			#grab_object(collider)
+		#else:
+			#pass
+			##$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "6:Not in Rings group"
+	#else:
+		#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "7:No collision detected"
+#
+#func grab_object(object: Node3D) -> void:
+	#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = object.name
+	#if object.get_parent():
+		#object.get_parent().remove_child(object)
+		#right_controller.add_child(object)
+		#held_object = object
+		#
+		#if object is RigidBody3D:
+			#object.process_mode = Node.PROCESS_MODE_DISABLED
+		#
+		#var collision_shape = object.get_node("CollisionShape3D")
+		#if collision_shape:
+			#collision_shape.disabled = true
+#
+#func drop_object() -> void:
+	#if held_object:
+		#right_controller.remove_child(held_object)
+		#world.add_child(held_object)
+		#
+		#var drop_pos = right_controller.global_transform.origin
+		#var forward = -right_controller.global_transform.basis.z
+		#held_object.global_transform.origin = drop_pos + forward * 0.5
+		#
+		#if held_object is RigidBody3D:
+			#held_object.process_mode = Node.PROCESS_MODE_INHERIT
+		#
+		#var collision_shape = held_object.get_node("CollisionShape3D")
+		#if collision_shape:
+			#collision_shape.disabled = false
+			#
+		#held_object = null
+
+#func _on_right_xr_controller_3d_button_pressed(name: String) -> void:
+	#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "_on_right_xr_controller_3d_button_pressed"
+	#if name == "trigger_click":
+		#if held_object:
+			#drop_object()
+		#else:
+			#$XROrigin3D/XRCamera3D/MeshInstance3D.mesh.text = "click"
+			#try_grab_object()
 			
 func _on_ring_stack_updated(_ring: Ring) -> void:
 	_update_base_rings()
@@ -68,8 +124,6 @@ func _on_ring_stack_updated(_ring: Ring) -> void:
 
 func _update_base_rings() -> void:
 	base_rings.clear()
-	
-	# Находим кольца без нижних колец (стоящие на земле)
 	for ring in rings:
 		if not ring.ring_below:
 			base_rings.append(ring)
@@ -119,24 +173,11 @@ func _check_win() -> void:
 			# Если нашли правильный стек
 			if is_correct:
 				print("Победа! Стек собран правильно!")
-				# Здесь можно добавить дополнительные действия при победе
-				# Например, показать UI, остановить игру и т.д.
 				_show_win_message()
 				return
-	
-	# Если мы дошли до этой точки, значит правильный стек не найден
-	# print("Продолжайте собирать стек...")
 
 func _show_win_message() -> void:
-	# Можно добавить показ UI с сообщением о победе
 	print("======================")
 	print("🎉 Поздравляем! 🎉")
 	print("Вы успешно собрали пирамиду!")
 	print("======================")
-	
-	# Дополнительные действия при победе
-	# Например, можно освободить мышь
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	
-	# Можно добавить паузу или другие игровые эффекты
-	# get_tree().paused = true

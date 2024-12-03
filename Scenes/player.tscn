@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwhkng5nevhlc"]
+[gd_scene load_steps=12 format=3 uid="uid://bwhkng5nevhlc"]
 
 [ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_wuikl"]
 [ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="2_c5258"]
 [ext_resource type="Script" path="res://Script/cursor.gd" id="3_5twcb"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_dxu2u"]
+[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_gvoys"]
 [ext_resource type="Texture2D" uid="uid://dwu4esvndabdu" path="res://Assets/Sprites/CircularProgressBar.png" id="4_hivdy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
@@ -18,28 +20,55 @@ sky_material = SubResource("PanoramaSkyMaterial_0fpnf")
 background_mode = 2
 sky = SubResource("Sky_0i6le")
 
+[sub_resource type="TextMesh" id="TextMesh_ctdo3"]
+
 [node name="Player" type="CharacterBody3D"]
-transform = Transform3D(0.534873, 0, 0, 0, 0.99596, 0, 0, 0, 0.99596, 0, 0.376268, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376268, 0)
 collision_layer = 2
-collision_mask = 13
+collision_mask = 9
 script = ExtResource("1_wuikl")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_i5rpn")
 
-[node name="XRCamera3D" type="XRCamera3D" parent="."]
-transform = Transform3D(1.86205, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+[node name="XROrigin3D" type="XROrigin3D" parent="."]
+
+[node name="LeftXRController3D" type="XRController3D" parent="XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="FunctionPointer" parent="XROrigin3D/LeftXRController3D" instance=ExtResource("3_gvoys")]
+show_target = true
+collision_mask = 4
+suppress_mask = 4
+
+[node name="FunctionPickup" parent="XROrigin3D/LeftXRController3D/FunctionPointer" instance=ExtResource("3_dxu2u")]
+grab_collision_mask = 4
+ranged_angle = 45.0
+
+[node name="RightXRController3D" type="XRController3D" parent="XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="FunctionPointer2" parent="XROrigin3D/RightXRController3D" instance=ExtResource("3_gvoys")]
+show_target = true
+collision_mask = 4
+suppress_mask = 4
+
+[node name="FunctionPickup" parent="XROrigin3D/RightXRController3D/FunctionPointer2" instance=ExtResource("3_dxu2u")]
+grab_distance = 5.0
+grab_collision_mask = 4
+ranged_angle = 45.0
+
+[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
+transform = Transform3D(1.8696, 0, 0, 0, 1.00406, 0, 0, 0, 1.00406, 0, 2, 0)
 environment = SubResource("Environment_e7i5a")
 
-[node name="RayCast3D" type="RayCast3D" parent="XRCamera3D"]
-collision_mask = 5
-
-[node name="Cursor" type="Node3D" parent="XRCamera3D"]
+[node name="Cursor" type="Node3D" parent="XROrigin3D/XRCamera3D"]
+process_mode = 4
 transform = Transform3D(0.534873, 0, 0, 0, 0.99596, 0, 0, 0, 0.99596, 0, -1.99192, 0)
 script = ExtResource("3_5twcb")
 
-[node name="ColorRect" type="ColorRect" parent="XRCamera3D/Cursor"]
+[node name="ColorRect" type="ColorRect" parent="XROrigin3D/XRCamera3D/Cursor"]
 visible = false
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,10 +84,10 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Timer" type="Timer" parent="XRCamera3D/Cursor"]
+[node name="Timer" type="Timer" parent="XROrigin3D/XRCamera3D/Cursor"]
 wait_time = 0.7
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="XRCamera3D/Cursor"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="XROrigin3D/XRCamera3D/Cursor"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -76,3 +105,14 @@ fill_mode = 4
 texture_under = ExtResource("4_hivdy")
 texture_progress = ExtResource("4_hivdy")
 tint_under = Color(0, 0, 0, 1)
+
+[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/XRCamera3D"]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, 0)
+collision_mask = 5
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.8833)
+mesh = SubResource("TextMesh_ctdo3")
+
+[connection signal="button_pressed" from="XROrigin3D/RightXRController3D" to="." method="_on_right_xr_controller_3d_button_pressed"]
