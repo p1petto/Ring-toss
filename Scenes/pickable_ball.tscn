@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://bw8sexyucgm2g"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_xxx6d"]
+[ext_resource type="Script" path="res://Script/pickable_ball.gd" id="2_v744f"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ma6dt"]
+bounce = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_085go"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_lojbv"]
+radius = 0.2
+height = 0.4
+
+[node name="PickableObject" groups=["Ball"] instance=ExtResource("1_xxx6d")]
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_ma6dt")
+gravity_scale = 0.0
+script = ExtResource("2_v744f")
+picked_up_layer = 4
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("SphereShape3D_085go")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." index="1"]
+mesh = SubResource("SphereMesh_lojbv")
+
+[node name="Area3D" type="Area3D" parent="." index="2"]
+collision_layer = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("SphereShape3D_085go")
+
+[node name="Timer" type="Timer" parent="." index="3"]
+wait_time = 3.0
+
+[connection signal="picked_up" from="." to="." method="_on_picked_up"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

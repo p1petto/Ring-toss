@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://bwhkng5nevhlc"]
+[gd_scene load_steps=13 format=3 uid="uid://bwhkng5nevhlc"]
 
 [ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_wuikl"]
 [ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="2_c5258"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_nn45u"]
 [ext_resource type="Script" path="res://Script/cursor.gd" id="3_5twcb"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_dxu2u"]
-[ext_resource type="PackedScene" uid="uid://cqhw276realc" path="res://addons/godot-xr-tools/functions/function_pointer.tscn" id="3_gvoys"]
 [ext_resource type="Texture2D" uid="uid://dwu4esvndabdu" path="res://Assets/Sprites/CircularProgressBar.png" id="4_hivdy"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4_jbrtd"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
 size = Vector3(1, 2, 0.59)
@@ -37,27 +38,22 @@ shape = SubResource("BoxShape3D_i5rpn")
 [node name="LeftXRController3D" type="XRController3D" parent="XROrigin3D"]
 tracker = &"left_hand"
 
-[node name="FunctionPointer" parent="XROrigin3D/LeftXRController3D" instance=ExtResource("3_gvoys")]
-show_target = true
-collision_mask = 4
-suppress_mask = 4
+[node name="LeftHand" parent="XROrigin3D/LeftXRController3D" instance=ExtResource("2_nn45u")]
 
-[node name="FunctionPickup" parent="XROrigin3D/LeftXRController3D/FunctionPointer" instance=ExtResource("3_dxu2u")]
+[node name="FunctionPickup" parent="XROrigin3D/LeftXRController3D/LeftHand" instance=ExtResource("3_dxu2u")]
 grab_collision_mask = 4
-ranged_angle = 45.0
+ranged_collision_mask = 0
+impulse_factor = 2.0
 
 [node name="RightXRController3D" type="XRController3D" parent="XROrigin3D"]
 tracker = &"right_hand"
 
-[node name="FunctionPointer2" parent="XROrigin3D/RightXRController3D" instance=ExtResource("3_gvoys")]
-show_target = true
-collision_mask = 4
-suppress_mask = 4
+[node name="RightHand" parent="XROrigin3D/RightXRController3D" instance=ExtResource("4_jbrtd")]
 
-[node name="FunctionPickup" parent="XROrigin3D/RightXRController3D/FunctionPointer2" instance=ExtResource("3_dxu2u")]
-grab_distance = 5.0
+[node name="FunctionPickup" parent="XROrigin3D/RightXRController3D/RightHand" instance=ExtResource("3_dxu2u")]
 grab_collision_mask = 4
-ranged_angle = 45.0
+ranged_collision_mask = 0
+impulse_factor = 2.0
 
 [node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
 transform = Transform3D(1.8696, 0, 0, 0, 1.00406, 0, 0, 0, 1.00406, 0, 2, 0)

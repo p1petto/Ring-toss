@@ -1,0 +1,30 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2jmx76r78nqq"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_25871"]
+height = 0.1
+radius = 0.305
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k8qhw"]
+height = 0.1
+radius = 0.1
+
+[node name="Node3D" type="Area3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_25871")
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="."]
+inner_radius = 0.305
+outer_radius = 0.386
+
+[node name="UpperArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="UpperArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.118734, 0)
+shape = SubResource("CylinderShape3D_25871")
+
+[node name="LowerArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LowerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.206799, 0)
+shape = SubResource("CylinderShape3D_k8qhw")

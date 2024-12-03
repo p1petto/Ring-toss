@@ -28,6 +28,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 
 Rings=""
 rings_shape=""
+Ball=""
 
 [input]
 
@@ -78,8 +79,8 @@ interact={
 
 3d_physics/layer_1="World"
 3d_physics/layer_2="Player"
-3d_physics/layer_3="Rings"
-3d_physics/layer_4="RingsShape"
+3d_physics/layer_3="Ball"
+3d_physics/layer_4="Basket"
 
 [rendering]
 
