@@ -20,6 +20,7 @@ func _ready() -> void:
 	print("Start timer exists: ", start_delay_timer != null)
 	print("Duration timer exists: ", duration_timer != null)
 
+
 func _on_upper_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("Ball"):
 		print("Ball entered upper area")

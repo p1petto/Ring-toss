@@ -1,6 +1,6 @@
-extends XROrigin3D
+extends XRToolsPlayerBody
 
-@onready var camera = $XRCamera3D
+@onready var camera = $XROrigin3D/XRCamera3D
 @onready var world = $"../"
 @onready var ball = $"../PickableObject"
 
@@ -16,22 +16,21 @@ func _ready():
 	ball.ball_died.connect(create_ball)
 
 func _physics_process(delta: float) -> void:
-	#if not is_on_floor():
-		#velocity += get_gravity() * delta
-#
-	## Обработка движения
-	#var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	#var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	#
-	#if direction:
-		#velocity.x = direction.x * SPEED
-		#velocity.z = direction.z * SPEED
-	#else:
-		#velocity.x = move_toward(velocity.x, 0, SPEED)
-		#velocity.z = move_toward(velocity.z, 0, SPEED)
-#
-	#move_and_slide()
-	pass
+	if not is_on_floor():
+		velocity += get_gravity() * delta
+
+	# Обработка движения
+	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	if direction:
+		velocity.x = direction.x * SPEED
+		velocity.z = direction.z * SPEED
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		velocity.z = move_toward(velocity.z, 0, SPEED)
+
+	move_and_slide()
 	
 func create_ball():
 	var ball_pos = position + Vector3(0, 1.5, -0.5)

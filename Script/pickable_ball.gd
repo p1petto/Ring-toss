@@ -2,15 +2,16 @@ extends XRToolsPickable
 
 class_name Ball
 
-@onready var collision_shape = $CollisionShape3D
-@onready var mesh = $MeshInstance3D
+#@onready var collision_shape = $CollisionShape3D
+#@onready var mesh = $MeshInstance3D
 @onready var timer = $Timer
 
 signal ball_died
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	collision_shape.shape.radius = mesh.mesh.radius
+	#collision_shape.shape.radius = mesh.mesh.radius
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,114 +1,57 @@
-[gd_scene load_steps=13 format=3 uid="uid://bwhkng5nevhlc"]
+[gd_scene load_steps=12 format=3 uid="uid://bwhkng5nevhlc"]
 
 [ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_wuikl"]
 [ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="2_c5258"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_nn45u"]
-[ext_resource type="Script" path="res://Script/cursor.gd" id="3_5twcb"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="2_rj45d"]
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_dxu2u"]
-[ext_resource type="Texture2D" uid="uid://dwu4esvndabdu" path="res://Assets/Sprites/CircularProgressBar.png" id="4_hivdy"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="4_acfei"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4_jbrtd"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_i5rpn"]
-size = Vector3(1, 2, 0.59)
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_0fpnf"]
 panorama = ExtResource("2_c5258")
 
-[sub_resource type="Sky" id="Sky_0i6le"]
+[sub_resource type="Sky" id="Sky_orjtd"]
 sky_material = SubResource("PanoramaSkyMaterial_0fpnf")
 
 [sub_resource type="Environment" id="Environment_e7i5a"]
 background_mode = 2
-sky = SubResource("Sky_0i6le")
+sky = SubResource("Sky_orjtd")
 
 [sub_resource type="TextMesh" id="TextMesh_ctdo3"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="Player" type="XROrigin3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.376268, 0)
-collision_layer = 2
-collision_mask = 9
 script = ExtResource("1_wuikl")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="PlayerBody" parent="." instance=ExtResource("2_rj45d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_i5rpn")
 
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
-
-[node name="LeftXRController3D" type="XRController3D" parent="XROrigin3D"]
+[node name="LeftXRController3D" type="XRController3D" parent="."]
 tracker = &"left_hand"
 
-[node name="LeftHand" parent="XROrigin3D/LeftXRController3D" instance=ExtResource("2_nn45u")]
+[node name="LeftHand" parent="LeftXRController3D" instance=ExtResource("2_nn45u")]
 
-[node name="FunctionPickup" parent="XROrigin3D/LeftXRController3D/LeftHand" instance=ExtResource("3_dxu2u")]
-grab_collision_mask = 4
-ranged_collision_mask = 0
-impulse_factor = 2.0
+[node name="FunctionTeleport" parent="LeftXRController3D/LeftHand" instance=ExtResource("4_acfei")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="RightXRController3D" type="XRController3D" parent="XROrigin3D"]
+[node name="RightXRController3D" type="XRController3D" parent="."]
 tracker = &"right_hand"
 
-[node name="RightHand" parent="XROrigin3D/RightXRController3D" instance=ExtResource("4_jbrtd")]
+[node name="RightHand" parent="RightXRController3D" instance=ExtResource("4_jbrtd")]
 
-[node name="FunctionPickup" parent="XROrigin3D/RightXRController3D/RightHand" instance=ExtResource("3_dxu2u")]
+[node name="FunctionPickup" parent="RightXRController3D/RightHand" instance=ExtResource("3_dxu2u")]
+action_button_action = "grip_click"
+grab_distance = 0.0
 grab_collision_mask = 4
 ranged_collision_mask = 0
-impulse_factor = 1.5
+impulse_factor = 1.7
 
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-transform = Transform3D(1.8696, 0, 0, 0, 1.00406, 0, 0, 0, 1.00406, 0, 2, 0)
+[node name="XRCamera3D" type="XRCamera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 environment = SubResource("Environment_e7i5a")
+current = true
 
-[node name="Cursor" type="Node3D" parent="XROrigin3D/XRCamera3D"]
-process_mode = 4
-transform = Transform3D(0.534873, 0, 0, 0, 0.99596, 0, 0, 0, 0.99596, 0, -1.99192, 0)
-script = ExtResource("3_5twcb")
-
-[node name="ColorRect" type="ColorRect" parent="XROrigin3D/XRCamera3D/Cursor"]
-visible = false
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="Timer" type="Timer" parent="XROrigin3D/XRCamera3D/Cursor"]
-wait_time = 0.7
-
-[node name="TextureProgressBar" type="TextureProgressBar" parent="XROrigin3D/XRCamera3D/Cursor"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -150.0
-offset_top = -150.0
-offset_right = 150.0
-offset_bottom = 150.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(0.075, 0.075)
-pivot_offset = Vector2(150, 150)
-fill_mode = 4
-texture_under = ExtResource("4_hivdy")
-texture_progress = ExtResource("4_hivdy")
-tint_under = Color(0, 0, 0, 1)
-
-[node name="RayCast3D" type="RayCast3D" parent="XROrigin3D/XRCamera3D"]
-process_mode = 4
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.76837e-07, 0)
-collision_mask = 5
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/XRCamera3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRCamera3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.8833)
 mesh = SubResource("TextMesh_ctdo3")
-
-[connection signal="button_pressed" from="XROrigin3D/RightXRController3D" to="." method="_on_right_xr_controller_3d_button_pressed"]

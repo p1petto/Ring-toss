@@ -1,0 +1,66 @@
+[gd_scene load_steps=13 format=3 uid="uid://b1adw5y4hs8ud"]
+
+[ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_3v6gp"]
+[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="1_vdvl4"]
+[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="3_f2j8f"]
+[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="4_c2sny"]
+[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4_uav21"]
+[ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="5_tkd40"]
+[ext_resource type="Texture2D" uid="uid://da0lg8nom24qh" path="res://Assets/Environment/kloppenheim_02_puresky_1k.exr" id="6_aj1c5"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_41qwc"]
+size = Vector3(1, 2, 0.59)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_8cdfp"]
+panorama = ExtResource("6_aj1c5")
+
+[sub_resource type="Sky" id="Sky_0i6le"]
+sky_material = SubResource("PanoramaSkyMaterial_8cdfp")
+
+[sub_resource type="Environment" id="Environment_re0rs"]
+background_mode = 2
+sky = SubResource("Sky_0i6le")
+
+[sub_resource type="TextMesh" id="TextMesh_g2w0w"]
+
+[node name="PlayerXR" type="Node3D" groups=["player_body"]]
+process_priority = -100
+process_physics_priority = -100
+top_level = true
+script = ExtResource("1_3v6gp")
+
+[node name="PlayerBody" parent="." instance=ExtResource("1_vdvl4")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_41qwc")
+
+[node name="XROrigin3D" type="XROrigin3D" parent="PlayerBody"]
+
+[node name="LeftXRController3D" type="XRController3D" parent="PlayerBody/XROrigin3D"]
+tracker = &"left_hand"
+
+[node name="LeftHand" parent="PlayerBody/XROrigin3D/LeftXRController3D" instance=ExtResource("3_f2j8f")]
+
+[node name="FunctionTeleport" parent="PlayerBody/XROrigin3D/LeftXRController3D/LeftHand" instance=ExtResource("4_c2sny")]
+
+[node name="RightXRController3D" type="XRController3D" parent="PlayerBody/XROrigin3D"]
+tracker = &"right_hand"
+
+[node name="RightHand" parent="PlayerBody/XROrigin3D/RightXRController3D" instance=ExtResource("4_uav21")]
+
+[node name="FunctionPickup" parent="PlayerBody/XROrigin3D/RightXRController3D/RightHand" instance=ExtResource("5_tkd40")]
+action_button_action = "grip_click"
+grab_distance = 0.0
+grab_collision_mask = 4
+ranged_collision_mask = 0
+impulse_factor = 1.7
+
+[node name="XRCamera3D" type="XRCamera3D" parent="PlayerBody/XROrigin3D"]
+transform = Transform3D(1.8696, 0, 0, 0, 1.00406, 0, 0, 0, 1.00406, 0, 2, 0)
+environment = SubResource("Environment_re0rs")
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerBody/XROrigin3D/XRCamera3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.8833)
+mesh = SubResource("TextMesh_g2w0w")

@@ -1,27 +1,39 @@
-[gd_scene load_steps=6 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=8 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
-[ext_resource type="PackedScene" uid="uid://bwj7e848ymusp" path="res://Assets/Environment/LowPoly Environment Pack/Environment_1.fbx" id="3_w3wgm"]
+[ext_resource type="PackedScene" uid="uid://wo3lnine4m3v" path="res://Assets/Environment/Basketball_15x28.fbx" id="3_60sbr"]
 [ext_resource type="PackedScene" uid="uid://bw8sexyucgm2g" path="res://Scenes/pickable_ball.tscn" id="4_q86r7"]
+[ext_resource type="PackedScene" uid="uid://b2jmx76r78nqq" path="res://Scenes/Buscket.tscn" id="5_mtmua"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gp8mm"]
+size = Vector3(0.16, 1.065, 1.77)
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
 script = ExtResource("1_qmo1i")
 
-[node name="Player" parent="." instance=ExtResource("2_0h47v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.54391, 0)
-
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 
-[node name="Environment_1" parent="StaticBody3D2" instance=ExtResource("3_w3wgm")]
-transform = Transform3D(2.87183, 0, 0, 0, 1, 0, 0, 0, 2.06256, 0.241384, -0.629748, 0.141391)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.172669, 0)
 shape = SubResource("WorldBoundaryShape3D_d2wyr")
 
+[node name="Basketball_15x28" parent="StaticBody3D2" instance=ExtResource("3_60sbr")]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8027, 3.49247, 0)
+visible = false
+use_collision = true
+collision_mask = 4
+mesh = SubResource("BoxMesh_gp8mm")
+
 [node name="PickableObject" parent="." instance=ExtResource("4_q86r7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.438, 1.27965, -0.653068)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63267, 1.27965, -0.164714)
+
+[node name="Busket" parent="." instance=ExtResource("5_mtmua")]
+transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, -12.4822, 3.09464, -0.0029917)
+
+[node name="Player" parent="." instance=ExtResource("2_0h47v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.279, 0.309064, 0)
