@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2jmx76r78nqq"]
+[gd_scene load_steps=9 format=3 uid="uid://b2jmx76r78nqq"]
 
 [ext_resource type="Script" path="res://Script/buscket.gd" id="1_cad6u"]
 [ext_resource type="PackedScene" uid="uid://bw8sexyucgm2g" path="res://Scenes/pickable_ball.tscn" id="2_8a2hv"]
@@ -14,6 +14,24 @@ radius = 0.305
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k8qhw"]
 height = 0.1
 radius = 0.1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_58d58"]
+particle_flag_rotate_y = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+angle_min = -180.0
+angle_max = 180.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mii1u"]
+albedo_color = Color(1, 0.245736, 0.183135, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_gyob2"]
+lightmap_size_hint = Vector2i(2, 2)
+material = SubResource("StandardMaterial3D_mii1u")
+size = Vector2(0.1, 0.1)
 
 [node name="Busket" type="Area3D"]
 script = ExtResource("1_cad6u")
@@ -47,11 +65,25 @@ shape = SubResource("CylinderShape3D_k8qhw")
 [node name="PickableObject" parent="." instance=ExtResource("2_8a2hv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35178, 0)
 
-[node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.49099, 7.35798)
+[node name="Particles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.441717, 0)
+emitting = false
+amount = 15
+lifetime = 0.28
+randomness = 0.65
+process_material = SubResource("ParticleProcessMaterial_58d58")
+draw_pass_1 = SubResource("PlaneMesh_gyob2")
+
+[node name="StartDelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="DurationTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [connection signal="ball_collided" from="." to="." method="_on_ball_collided"]
 [connection signal="body_entered" from="UpperArea" to="." method="_on_upper_area_body_entered"]
 [connection signal="body_exited" from="UpperArea" to="." method="_on_upper_area_body_exited"]
 [connection signal="body_entered" from="LowerArea" to="." method="_on_lower_area_body_entered"]
 [connection signal="body_exited" from="LowerArea" to="." method="_on_lower_area_body_exited"]
+[connection signal="timeout" from="StartDelayTimer" to="." method="_on_start_delay_timer_timeout"]
+[connection signal="timeout" from="DurationTimer" to="." method="_on_duration_timer_timeout"]
