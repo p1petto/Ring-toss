@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2jmx76r78nqq"]
+[gd_scene load_steps=4 format=3 uid="uid://b2jmx76r78nqq"]
 
 [ext_resource type="Script" path="res://Script/buscket.gd" id="1_cad6u"]
 
@@ -9,24 +9,6 @@ radius = 0.305
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k8qhw"]
 height = 0.1
 radius = 0.1
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_58d58"]
-particle_flag_rotate_y = true
-emission_shape = 6
-emission_ring_axis = Vector3(0, 0, 1)
-emission_ring_height = 1.0
-emission_ring_radius = 1.0
-emission_ring_inner_radius = 0.0
-angle_min = -180.0
-angle_max = 180.0
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mii1u"]
-albedo_color = Color(1, 0.245736, 0.183135, 1)
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_gyob2"]
-lightmap_size_hint = Vector2i(2, 2)
-material = SubResource("StandardMaterial3D_mii1u")
-size = Vector2(0.1, 0.1)
 
 [node name="Busket" type="Area3D"]
 script = ExtResource("1_cad6u")
@@ -54,15 +36,6 @@ collision_mask = 4
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LowerArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.144435, 0)
 shape = SubResource("CylinderShape3D_k8qhw")
-
-[node name="Particles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.441717, 0)
-emitting = false
-amount = 15
-lifetime = 0.28
-randomness = 0.65
-process_material = SubResource("ParticleProcessMaterial_58d58")
-draw_pass_1 = SubResource("PlaneMesh_gyob2")
 
 [node name="StartDelayTimer" type="Timer" parent="."]
 wait_time = 0.5

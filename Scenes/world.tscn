@@ -17,6 +17,12 @@ script = ExtResource("1_qmo1i")
 
 [node name="StaticBody3D2" type="StaticBody3D" parent="."]
 
+[node name="Busket" parent="StaticBody3D2" instance=ExtResource("5_mtmua")]
+transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, -12.4822, 3.09464, -0.0029917)
+
+[node name="Busket2" parent="StaticBody3D2" instance=ExtResource("5_mtmua")]
+transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, 12.482, 3.095, -0.003)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("WorldBoundaryShape3D_d2wyr")
 
@@ -29,11 +35,15 @@ use_collision = true
 collision_mask = 4
 mesh = SubResource("BoxMesh_gp8mm")
 
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.803, 3.492, 0)
+visible = false
+use_collision = true
+collision_mask = 4
+mesh = SubResource("BoxMesh_gp8mm")
+
 [node name="PickableObject" parent="." instance=ExtResource("4_q86r7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63267, 1.27965, -0.164714)
-
-[node name="Busket" parent="." instance=ExtResource("5_mtmua")]
-transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, -12.4822, 3.09464, -0.0029917)
 
 [node name="Player" parent="." instance=ExtResource("2_0h47v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.279, 0.309064, 0)
