@@ -15,7 +15,6 @@ height = 0.4
 [node name="PickableObject" groups=["Ball"] instance=ExtResource("1_xxx6d")]
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_ma6dt")
-gravity_scale = 0.0
 script = ExtResource("2_v744f")
 picked_up_layer = 4
 
