@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
-[ext_resource type="PackedScene" uid="uid://wo3lnine4m3v" path="res://Assets/Environment/Basketball_15x28.fbx" id="3_60sbr"]
+[ext_resource type="PackedScene" uid="uid://kelkdo88lo3h" path="res://Assets/Environment/Basketballcourt.fbx" id="3_4n6rf"]
 [ext_resource type="PackedScene" uid="uid://bw8sexyucgm2g" path="res://Scenes/pickable_ball.tscn" id="4_q86r7"]
 [ext_resource type="PackedScene" uid="uid://b2jmx76r78nqq" path="res://Scenes/Buscket.tscn" id="5_mtmua"]
 [ext_resource type="PackedScene" uid="uid://btpivw2e7v5ii" path="res://Scenes/zones/zone2.tscn" id="6_07mqy"]
@@ -37,13 +37,8 @@ script = ExtResource("1_qmo1i")
 [node name="Busket" parent="StaticBody3D2" instance=ExtResource("5_mtmua")]
 transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, -12.4822, 3.09464, -0.0029917)
 
-[node name="Busket2" parent="StaticBody3D2" instance=ExtResource("5_mtmua")]
-transform = Transform3D(0.905, 0, 0, 0, 0.905, 0, 0, 0, 0.905, 12.482, 3.095, -0.003)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
 shape = SubResource("WorldBoundaryShape3D_d2wyr")
-
-[node name="Basketball_15x28" parent="StaticBody3D2" instance=ExtResource("3_60sbr")]
 
 [node name="CSGMesh3D" type="CSGMesh3D" parent="StaticBody3D2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.8027, 3.49247, 0)
@@ -52,12 +47,7 @@ use_collision = true
 collision_mask = 4
 mesh = SubResource("BoxMesh_gp8mm")
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="StaticBody3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.803, 3.492, 0)
-visible = false
-use_collision = true
-collision_mask = 4
-mesh = SubResource("BoxMesh_gp8mm")
+[node name="Basketballcourt" parent="StaticBody3D2" instance=ExtResource("3_4n6rf")]
 
 [node name="PickableObject" parent="." instance=ExtResource("4_q86r7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63267, 1.27965, -0.164714)
@@ -91,9 +81,6 @@ shape = SubResource("WorldBoundaryShape3D_kdpup")
 
 [node name="zone2" parent="." instance=ExtResource("6_07mqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0788, 0, 0)
-
-[node name="zone3" parent="." instance=ExtResource("6_07mqy")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10.6086, 0, 0.174)
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0949, 1.21605, 0.996191)

@@ -23,7 +23,7 @@ func _on_lower_area_body_entered(body: Node3D) -> void:
 		ball_on_down = true
 		if ball_on_up:
 			ball_collided.emit()
-			print("Попааал")
+			body.flag = true
 
 func _on_lower_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Ball"):

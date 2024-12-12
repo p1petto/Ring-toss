@@ -6,7 +6,10 @@ class_name Ball
 #@onready var mesh = $MeshInstance3D
 @onready var timer = $Timer
 
+var flag = false
+
 signal ball_died
+signal ball_fell
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -21,8 +24,8 @@ func _process(delta: float) -> void:
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	timer.start()
-	
-
+	if !flag:
+		ball_fell.emit()
 
 func _on_timer_timeout() -> void:
 	

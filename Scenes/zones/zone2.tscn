@@ -1,9 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://btpivw2e7v5ii"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_72be0"]
+height = 4.0
 radius = 6.44598
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_lnpt1"]
+height = 4.0
 radius = 6.643
 
 [node name="zone2" type="Area3D" groups=["zone2"]]
