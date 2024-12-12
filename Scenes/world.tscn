@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=12 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
@@ -10,6 +10,18 @@
 
 [sub_resource type="BoxMesh" id="BoxMesh_gp8mm"]
 size = Vector3(0.16, 1.065, 1.77)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_4ovjs"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_j7y82"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_86wf3"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_kdpup"]
+plane = Plane(0, 0, -1, 0)
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
@@ -47,3 +59,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.63267, 1.27965, -0.164714)
 
 [node name="Player" parent="." instance=ExtResource("2_0h47v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.279, 0.309064, 0)
+
+[node name="WallR" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9838, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallR"]
+shape = SubResource("WorldBoundaryShape3D_4ovjs")
+
+[node name="WallL" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.984, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallL"]
+shape = SubResource("WorldBoundaryShape3D_j7y82")
+
+[node name="WallU" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -9.319)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallU"]
+shape = SubResource("WorldBoundaryShape3D_86wf3")
+
+[node name="WallD" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.319)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WallD"]
+shape = SubResource("WorldBoundaryShape3D_kdpup")

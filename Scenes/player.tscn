@@ -52,7 +52,7 @@ ranged_collision_mask = 0
 impulse_factor = 1.7
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83295, 0)
 environment = SubResource("Environment_e7i5a")
 current = true
 
