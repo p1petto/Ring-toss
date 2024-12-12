@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=15 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
@@ -23,6 +23,10 @@ plane = Plane(0, 0, 1, 0)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_kdpup"]
 plane = Plane(0, 0, -1, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7rcfi"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u63ti"]
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
@@ -90,3 +94,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0788, 0, 0)
 
 [node name="zone3" parent="." instance=ExtResource("6_07mqy")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10.6086, 0, 0.174)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0949, 1.21605, 0.996191)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("BoxShape3D_7rcfi")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="RigidBody3D"]
+mesh = SubResource("BoxMesh_u63ti")
