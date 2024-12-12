@@ -29,6 +29,7 @@ enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
 Rings=""
 rings_shape=""
 Ball=""
+zone2=""
 
 [input]
 

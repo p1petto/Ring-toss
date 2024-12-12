@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=13 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
 [ext_resource type="PackedScene" uid="uid://wo3lnine4m3v" path="res://Assets/Environment/Basketball_15x28.fbx" id="3_60sbr"]
 [ext_resource type="PackedScene" uid="uid://bw8sexyucgm2g" path="res://Scenes/pickable_ball.tscn" id="4_q86r7"]
 [ext_resource type="PackedScene" uid="uid://b2jmx76r78nqq" path="res://Scenes/Buscket.tscn" id="5_mtmua"]
+[ext_resource type="PackedScene" uid="uid://btpivw2e7v5ii" path="res://Scenes/zones/zone2.tscn" id="6_07mqy"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
 
@@ -83,3 +84,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.319)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WallD"]
 shape = SubResource("WorldBoundaryShape3D_kdpup")
+
+[node name="zone2" parent="." instance=ExtResource("6_07mqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0788, 0, 0)
+
+[node name="zone3" parent="." instance=ExtResource("6_07mqy")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 10.6086, 0, 0.174)
