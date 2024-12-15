@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bwhkng5nevhlc"]
+[gd_scene load_steps=10 format=3 uid="uid://bwhkng5nevhlc"]
 
 [ext_resource type="Script" path="res://Script/character_body_3d.gd" id="1_wuikl"]
 [ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="2_nn45u"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b4ysuy43poobf" path="res://addons/godot-xr-tools/functions/function_pickup.tscn" id="3_dxu2u"]
 [ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="4_acfei"]
 [ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4_jbrtd"]
+[ext_resource type="AudioStream" uid="uid://cnqxfa1a2ei6o" path="res://Assets/sounds/the-award.mp3" id="7_mgw05"]
 
 [sub_resource type="TextMesh" id="TextMesh_ctdo3"]
 text = "
@@ -57,6 +58,9 @@ collision_mask = 16
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CapsuleShape3D_qdans")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_mgw05")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

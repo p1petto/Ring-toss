@@ -4,6 +4,7 @@ var ball_on_up = false
 var ball_on_down = false
 @onready var start_delay_timer = $StartDelayTimer
 @onready var duration_timer = $DurationTimer
+@onready var sound = $AudioStreamPlayer3D
 signal ball_collided
 
 func _ready() -> void:
@@ -24,6 +25,7 @@ func _on_lower_area_body_entered(body: Node3D) -> void:
 		if ball_on_up:
 			ball_collided.emit()
 			body.flag = true
+			sound.playing = true
 
 func _on_lower_area_body_exited(body: Node3D) -> void:
 	if body.is_in_group("Ball"):

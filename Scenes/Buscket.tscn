@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://b2jmx76r78nqq"]
+[gd_scene load_steps=5 format=3 uid="uid://b2jmx76r78nqq"]
 
 [ext_resource type="Script" path="res://Script/buscket.gd" id="1_cad6u"]
+[ext_resource type="AudioStream" uid="uid://dw8e2hc6a2502" path="res://Assets/sounds/ding-sound-effect-1.mp3" id="2_3bucj"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_qtty1"]
 height = 0.13
@@ -42,6 +43,9 @@ wait_time = 0.5
 
 [node name="DurationTimer" type="Timer" parent="."]
 wait_time = 3.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_3bucj")
 
 [connection signal="ball_collided" from="." to="." method="_on_ball_collided"]
 [connection signal="body_entered" from="UpperArea" to="." method="_on_upper_area_body_entered"]
