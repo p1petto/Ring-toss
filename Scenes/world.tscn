@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=19 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bw8sexyucgm2g" path="res://Scenes/pickable_ball.tscn" id="4_q86r7"]
 [ext_resource type="PackedScene" uid="uid://b2jmx76r78nqq" path="res://Scenes/Buscket.tscn" id="5_mtmua"]
 [ext_resource type="PackedScene" uid="uid://btpivw2e7v5ii" path="res://Scenes/zones/zone2.tscn" id="6_07mqy"]
+[ext_resource type="PackedScene" uid="uid://dqn3acqaxftkv" path="res://Scenes/score_box.tscn" id="7_pte6f"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
 
@@ -27,6 +28,21 @@ plane = Plane(0, 0, -1, 0)
 [sub_resource type="BoxShape3D" id="BoxShape3D_7rcfi"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_u63ti"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x5wnd"]
+sky_top_color = Color(0.130767, 0.351882, 0.9222, 1)
+ground_bottom_color = Color(0.167413, 0.200394, 0.303326, 1)
+
+[sub_resource type="Sky" id="Sky_x4yko"]
+sky_material = SubResource("ProceduralSkyMaterial_x5wnd")
+
+[sub_resource type="Environment" id="Environment_c20ro"]
+background_mode = 2
+background_color = Color(0.654643, 0.823237, 0.932131, 1)
+sky = SubResource("Sky_x4yko")
+ambient_light_source = 2
+ambient_light_color = Color(0.74558, 0.74558, 0.74558, 1)
+ambient_light_energy = 2.0
 
 [node name="World" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000773907, 0.0131996, -0.00630569)
@@ -50,7 +66,7 @@ mesh = SubResource("BoxMesh_gp8mm")
 [node name="Basketballcourt" parent="StaticBody3D2" instance=ExtResource("3_4n6rf")]
 
 [node name="Player" parent="." instance=ExtResource("2_0h47v")]
-transform = Transform3D(-0.137444, 0, 0.990509, 0, 1, 0, -0.990509, 0, -0.137444, -9.279, 0.309064, 0)
+transform = Transform3D(-0.121869, 0, 0.992545, 0, 1, 0, -0.992545, 0, -0.121869, -9.279, 0.309064, 0)
 
 [node name="WallR" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.9838, 0, 0)
@@ -90,3 +106,12 @@ mesh = SubResource("BoxMesh_u63ti")
 
 [node name="PickableObject" parent="." instance=ExtResource("4_q86r7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4035, 1.49953, 0.147059)
+
+[node name="ScoreBox" parent="." instance=ExtResource("7_pte6f")]
+transform = Transform3D(-1, -1.50996e-07, 6.60023e-15, 0, -4.37114e-08, -1, 1.50996e-07, -1, 4.37114e-08, -3.12633, 3.64624, 10.7468)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_c20ro")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.4159, 0)

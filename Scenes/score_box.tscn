@@ -1,0 +1,76 @@
+[gd_scene load_steps=12 format=3 uid="uid://dqn3acqaxftkv"]
+
+[ext_resource type="FontFile" uid="uid://cdhl2wfhwjc3g" path="res://Assets/Fonts/Daneehand Regular Cyr/Daneehand Regular Cyr.ttf" id="1_6h63l"]
+[ext_resource type="Texture2D" uid="uid://ogfy540nxc6" path="res://Assets/Sprites/art.png" id="1_s25lu"]
+[ext_resource type="Material" uid="uid://bykf408qj5agb" path="res://materials/text_material.tres" id="2_4qjjd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lkg0m"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.702)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_n60v1"]
+size = Vector2(10.775, 6.28)
+
+[sub_resource type="TextMesh" id="TextMesh_uom3g"]
+material = ExtResource("2_4qjjd")
+uv2_padding = 8.05
+text = "Текущий счет -
+"
+font = ExtResource("1_6h63l")
+font_size = 86
+horizontal_alignment = 2
+
+[sub_resource type="TextMesh" id="TextMesh_n35th"]
+material = ExtResource("2_4qjjd")
+text = "0"
+font_size = 86
+horizontal_alignment = 0
+
+[sub_resource type="TextMesh" id="TextMesh_t42xp"]
+material = ExtResource("2_4qjjd")
+text = "Лучший счет -"
+font = ExtResource("1_6h63l")
+font_size = 86
+horizontal_alignment = 2
+
+[sub_resource type="TextMesh" id="TextMesh_4bi0d"]
+material = ExtResource("2_4qjjd")
+text = "0"
+font_size = 86
+horizontal_alignment = 0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jkxk6"]
+shading_mode = 0
+albedo_texture = ExtResource("1_s25lu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_igili"]
+material = SubResource("StandardMaterial3D_jkxk6")
+
+[node name="ScoreBox" type="MeshInstance3D"]
+transform = Transform3D(-1, -8.74227e-08, 0, -3.82137e-15, 4.37114e-08, -1, 8.74228e-08, -1, -4.37114e-08, -0.126327, 3.64624, 10.7468)
+material_override = SubResource("StandardMaterial3D_lkg0m")
+mesh = SubResource("PlaneMesh_n60v1")
+
+[node name="CurScoreLabel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -4.23516e-21, 1.42109e-14, 5.68434e-14, -4.37113e-08, 1, -2.11758e-21, -1, -4.37113e-08, 1.70624, 0, -1.14157)
+rotation_order = 3
+mesh = SubResource("TextMesh_uom3g")
+
+[node name="CurScore" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -6.77626e-21, 1.42109e-14, 9.23706e-14, -4.37113e-08, 0.999999, -3.81165e-21, -0.999999, -4.37113e-08, 2.12822, 0, -1.14157)
+rotation_order = 3
+mesh = SubResource("TextMesh_n35th")
+
+[node name="BestScoreLabel" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -5.0822e-21, 1.42109e-14, 7.10543e-14, -4.37113e-08, 0.999999, -2.96462e-21, -0.999999, -4.37113e-08, 1.43391, 1.90735e-06, 0.65234)
+rotation_order = 3
+mesh = SubResource("TextMesh_t42xp")
+
+[node name="BestScore" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, -7.6233e-21, 1.42109e-14, 1.13687e-13, -4.37113e-08, 0.999999, -4.65868e-21, -0.999999, -4.37113e-08, 2.1279, 9.53674e-07, 0.652775)
+rotation_order = 3
+mesh = SubResource("TextMesh_4bi0d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(3.105, -5.68434e-14, 4.23516e-21, 1.42109e-13, 3.105, -5.68434e-14, -2.5411e-21, 5.68434e-14, 3.105, -8.48831, 1.90735e-06, 0)
+mesh = SubResource("PlaneMesh_igili")
