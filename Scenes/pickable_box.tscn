@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://rt1ood3eanqk"]
+
+[ext_resource type="PackedScene" uid="uid://c8l60rnugru40" path="res://addons/godot-xr-tools/objects/pickable.tscn" id="1_byrhl"]
+[ext_resource type="Script" path="res://Script/pickable_box.gd" id="2_1tusp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mphwo"]
+bounce = 0.02
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g2b68"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u5nri"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="PickableObject" groups=["Box"] instance=ExtResource("1_byrhl")]
+collision_layer = 65536
+collision_mask = 65541
+mass = 30.017
+physics_material_override = SubResource("PhysicsMaterial_mphwo")
+script = ExtResource("2_1tusp")
+
+[node name="CollisionShape3D" parent="." index="0"]
+shape = SubResource("BoxShape3D_g2b68")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="1"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="Area3D" type="Area3D" parent="." index="2"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Area3D" index="0"]
+shape = SubResource("BoxShape3D_u5nri")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

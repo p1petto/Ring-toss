@@ -21,7 +21,7 @@ script = ExtResource("1_wuikl")
 [node name="PlayerBody" parent="." instance=ExtResource("2_rj45d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 2
-collision_mask = 1
+collision_mask = 65537
 
 [node name="LeftXRController3D" type="XRController3D" parent="."]
 tracker = &"left_hand"
@@ -30,6 +30,13 @@ tracker = &"left_hand"
 
 [node name="FunctionTeleport" parent="LeftXRController3D/LeftHand" instance=ExtResource("4_acfei")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_mask = 66559
+
+[node name="FunctionPickup" parent="LeftXRController3D/LeftHand" instance=ExtResource("3_dxu2u")]
+grab_distance = 10.0
+grab_collision_mask = 65536
+ranged_angle = 45.0
+ranged_collision_mask = 0
 
 [node name="RightXRController3D" type="XRController3D" parent="."]
 tracker = &"right_hand"
@@ -40,8 +47,10 @@ tracker = &"right_hand"
 action_button_action = "grip_click"
 grab_distance = 0.0
 grab_collision_mask = 4
+ranged_enable = false
+ranged_distance = 10.0
+ranged_angle = 45.0
 ranged_collision_mask = 0
-impulse_factor = 1.7
 
 [node name="XRCamera3D" type="XRCamera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -62,5 +71,7 @@ shape = SubResource("CapsuleShape3D_qdans")
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("7_mgw05")
 
+[connection signal="has_dropped" from="LeftXRController3D/LeftHand/FunctionPickup" to="." method="_on_function_pickup_has_dropped"]
+[connection signal="has_picked_up" from="LeftXRController3D/LeftHand/FunctionPickup" to="." method="_on_function_pickup_has_picked_up"]
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_3d_area_exited"]

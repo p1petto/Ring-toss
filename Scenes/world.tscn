@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cnd0f85o2of5v"]
+[gd_scene load_steps=18 format=3 uid="uid://cnd0f85o2of5v"]
 
 [ext_resource type="Script" path="res://Script/world.gd" id="1_qmo1i"]
 [ext_resource type="PackedScene" uid="uid://bwhkng5nevhlc" path="res://Scenes/player.tscn" id="2_0h47v"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://b2jmx76r78nqq" path="res://Scenes/Buscket.tscn" id="5_mtmua"]
 [ext_resource type="PackedScene" uid="uid://btpivw2e7v5ii" path="res://Scenes/zones/zone2.tscn" id="6_07mqy"]
 [ext_resource type="PackedScene" uid="uid://dqn3acqaxftkv" path="res://Scenes/score_box.tscn" id="7_pte6f"]
+[ext_resource type="PackedScene" uid="uid://rt1ood3eanqk" path="res://Scenes/pickable_box.tscn" id="8_5andk"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_d2wyr"]
 
@@ -24,10 +25,6 @@ plane = Plane(0, 0, 1, 0)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_kdpup"]
 plane = Plane(0, 0, -1, 0)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7rcfi"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_u63ti"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_x5wnd"]
 sky_top_color = Color(0.130767, 0.351882, 0.9222, 1)
@@ -95,15 +92,6 @@ shape = SubResource("WorldBoundaryShape3D_kdpup")
 [node name="zone2" parent="." instance=ExtResource("6_07mqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0788, 0, 0)
 
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.0949, 1.21605, 0.996191)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource("BoxShape3D_7rcfi")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="RigidBody3D"]
-mesh = SubResource("BoxMesh_u63ti")
-
 [node name="PickableObject" parent="." instance=ExtResource("4_q86r7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4035, 1.49953, 0.147059)
 
@@ -115,3 +103,12 @@ environment = SubResource("Environment_c20ro")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 11.4159, 0)
+
+[node name="PickableObject2" parent="." instance=ExtResource("8_5andk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0008, 0.9868, 0.00630569)
+
+[node name="PickableObject3" parent="." instance=ExtResource("8_5andk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.0008, 0.9868, -0.993694)
+
+[node name="PickableObject4" parent="." instance=ExtResource("8_5andk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.0008, 0.9868, -1.99369)

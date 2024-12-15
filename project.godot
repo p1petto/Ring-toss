@@ -30,6 +30,7 @@ Rings=""
 rings_shape=""
 Ball=""
 zone2=""
+Box=""
 
 [input]
 
@@ -82,6 +83,7 @@ interact={
 3d_physics/layer_2="Player"
 3d_physics/layer_3="Ball"
 3d_physics/layer_4="Basket"
+3d_physics/layer_17="Box"
 
 [rendering]
 

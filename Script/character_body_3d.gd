@@ -7,6 +7,13 @@ extends XROrigin3D
 @onready var sound = $AudioStreamPlayer3D
 @onready var text_cur_score = $"../ScoreBox/CurScore"
 @onready var text_best_score = $"../ScoreBox/BestScore"
+
+
+@onready var box1 = $"../PickableObject2"
+@onready var box2 = $"../PickableObject3"
+@onready var box3 = $"../PickableObject4"
+
+
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 const SPAWN_DISTANCE = 0.7
@@ -21,6 +28,10 @@ func _ready():
 	ball.ball_died.connect(create_ball)
 	ball.ball_fell.connect(clear_score)
 	busket.ball_collided.connect(add_count)
+	
+	#box1.touched_layer_one.connect(activate_mask_collision_box)
+	#box2.touched_layer_one.connect(activate_mask_collision_box)
+	#box3.touched_layer_one.connect(activate_mask_collision_box)
 
 func _physics_process(delta: float) -> void:
 	pass
@@ -65,5 +76,14 @@ func _on_area_3d_area_exited(area: Area3D) -> void:
 func clear_score():
 	curent_score = 0
 	sound_played_for_current_record = false  # Сбрасываем флаг при промахе
-	text_debug.mesh.text = str(curent_score)
+	#text_debug.mesh.text = str(curent_score)
 	text_cur_score.mesh.text = str(curent_score)
+
+
+func _on_function_pickup_has_picked_up(what: Variant) -> void:
+	$PlayerBody.set_collision_mask_value(17, 0)
+	
+
+
+func _on_function_pickup_has_dropped() -> void:
+	$PlayerBody.set_collision_mask_value(17, 1)
